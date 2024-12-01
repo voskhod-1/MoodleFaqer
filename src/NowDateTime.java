@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
-public class TimeSched {
+public class NowDateTime {
     static LocalDateTime today = LocalDateTime.now();
 
     public static boolean isNumerator(boolean invert) {

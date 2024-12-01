@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Schedule {
+
     private Map<String, Map<String, Map<String, String>>> classes;
 
     public Map<String, Map<String, Map<String, String>>> getPeriod() {

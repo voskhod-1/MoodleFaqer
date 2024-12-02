@@ -10,11 +10,11 @@ public class ConsoleInterface {
 
     public static void getMenu(WebDriver driver) {
         Scanner sc = new Scanner(System.in);
+        clearConsole();
         System.out.println("Меню скрипта: \n1. Автоматическая посещаемость\n2. Нафармить клонов в лекцию\n3. Положить сайт\n4. Разлогиниться");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                clearConsole();
                 AutoMark.Mark(driver);
                 break;
             case 2:
@@ -34,13 +34,15 @@ public class ConsoleInterface {
         String login = sc.nextLine();
         System.out.print("Введите пароль: ");
         String password = sc.nextLine();
-        sc.close();
         try {
             MoodleUser student = new MoodleUser(login, password);
             System.out.println(student.getUserName());
             getMenu(student.getDriver());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            sc.close();
         }
     }
 }

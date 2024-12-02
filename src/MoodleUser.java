@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,8 +25,12 @@ public class MoodleUser {
         driver.findElement(By.id("username")).sendKeys(login);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("loginbtn")).click();
-        List<WebElement> errChk = driver.findElements(By.className("alert-danger"));
-        return errChk.isEmpty();
+        try {
+            driver.findElement(By.className("alert-danger"));
+        }catch (NoSuchElementException e){
+            return false;
+        }
+        return true;
     }
     public String getUserName(){
         driver.get("https://edu.vsu.ru/my/");

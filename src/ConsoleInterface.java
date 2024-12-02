@@ -15,9 +15,10 @@ public class ConsoleInterface {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                AutoMark.Mark(driver);
+                AutoMark.AutoMarker(driver);
                 break;
             case 2:
+                UserCloner.getMenu(driver);
                 break;
             case 3:
                 break;

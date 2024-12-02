@@ -28,9 +28,9 @@ public class MoodleUser {
         try {
             driver.findElement(By.className("alert-danger"));
         }catch (NoSuchElementException e){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     public String getUserName(){
         driver.get("https://edu.vsu.ru/my/");

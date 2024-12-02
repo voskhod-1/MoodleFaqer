@@ -16,9 +16,12 @@ public class AutoMark {
                 System.out.println(NowDateTime.getTime());
                 try {
                     String link = schedule.getNowClassLink((NowDateTime.isNumerator(false)) ? "numerator" : "denominator", NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    int cnt = 0;
                     if (link != null) {
                         while (!isMarked) {
                             TimeUnit.MINUTES.sleep(5);
+                            cnt++;
+                            System.out.printf("Не удалось отметить свое присутствие. Попытка %d\n", cnt);
                             isMarked = Mark(driver, link);
                         }
 
@@ -40,9 +43,17 @@ public class AutoMark {
             driver.get(link);
         }
         try {
-            driver.findElement(By.id()).click();
+            driver.findElement(By.linkText("Отметить свое присутствие")).click();
+            TimeUnit.SECONDS.sleep(3);
+            driver.findElement(By.className("statuscol")).click();
+            TimeUnit.SECONDS.sleep(3);
+            driver.findElement(By.className("font-check-input")).click();
+            TimeUnit.SECONDS.sleep(3);
+            driver.findElement(By.name("submitbutton")).click();
             // Здесь будет логика
         } catch (NoSuchElementException e) {
+            return false;
+        } catch (InterruptedException e) {
             return false;
         }
         return true;

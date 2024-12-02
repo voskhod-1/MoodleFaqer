@@ -9,13 +9,13 @@ public class AutoMark {
             String strJson = JsonIO.readStringFromFile("classes.json");
             Schedule schedule = JsonIO.stringAsSchedule(strJson);
             while (true) {
+                System.out.println(NowDateTime.getTime());
                 try {
                     String link = schedule.getNowClassLink((NowDateTime.isNumerator(false)) ? "numerator" : "denominator", NowDateTime.getDayOfWeek(), NowDateTime.getTime());
                     if (link != null) {
                         driver.get(link);
                     }
                     TimeUnit.MINUTES.sleep(1);
-                    System.out.println(NowDateTime.getTime());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

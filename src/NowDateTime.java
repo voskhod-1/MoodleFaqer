@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -8,7 +9,7 @@ public class NowDateTime {
         LocalDateTime today = LocalDateTime.now();
         int invertInt = 0;
         if (invert) invertInt = 1;
-        WeekFields weekFields = WeekFields.of(Locale.ROOT);
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
         int weekNumber = today.get(weekFields.weekOfYear());
         return (weekNumber + invertInt) % 2 == 0;
     }

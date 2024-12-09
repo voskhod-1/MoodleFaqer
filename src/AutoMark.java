@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -11,18 +12,21 @@ public class AutoMark {
         try {
             String strJson = JsonIO.readStringFromFile("classes.json");
             Schedule schedule = JsonIO.stringAsSchedule(strJson);
+            System.out.println(NowDateTime.isNumerator(false) ? "numerator" : "denominator");
+            System.out.println(NowDateTime.getDayOfWeek());
             while (true) {
                 boolean isMarked = false;
                 System.out.println(NowDateTime.getTime());
                 try {
                     String link = schedule.getNowClassLink((NowDateTime.isNumerator(false)) ? "numerator" : "denominator", NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    System.out.println(link);
                     int cnt = 0;
                     if (link != null) {
                         while (!isMarked) {
-                            TimeUnit.MINUTES.sleep(5);
-                            cnt++;
                             System.out.printf("Не удалось отметить свое присутствие. Попытка %d\n", cnt);
+                            cnt++;
                             isMarked = Mark(driver, link);
+                            TimeUnit.MINUTES.sleep(5);
                         }
 
                     }
@@ -45,11 +49,9 @@ public class AutoMark {
         try {
             driver.findElement(By.linkText("Отметить свое присутствие")).click();
             TimeUnit.SECONDS.sleep(3);
-            driver.findElement(By.className("statuscol")).click();
+            driver.findElement(By.name("status")).click();
             TimeUnit.SECONDS.sleep(3);
-            driver.findElement(By.className("font-check-input")).click();
-            TimeUnit.SECONDS.sleep(3);
-            driver.findElement(By.name("submitbutton")).click();
+            driver.findElement(By.id("id_submitbutton")).click();
             // Здесь будет логика
         } catch (NoSuchElementException e) {
             return false;

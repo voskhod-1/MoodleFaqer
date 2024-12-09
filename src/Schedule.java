@@ -35,6 +35,7 @@ public class Schedule {
     public String getNowClassLink(String weekType, String dayOfWeek, String time){
         if(getAllDays(weekType).contains(dayOfWeek)){
             if(getAllTime(weekType,dayOfWeek).contains(time)){
+                System.out.println("Ссылка");
                 return getPeriod().get(weekType).get(dayOfWeek).get(time);
             }
         }

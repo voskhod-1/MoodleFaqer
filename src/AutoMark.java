@@ -3,7 +3,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -12,23 +11,21 @@ public class AutoMark {
         try {
             String strJson = JsonIO.readStringFromFile("classes.json");
             Schedule schedule = JsonIO.stringAsSchedule(strJson);
-            System.out.println(NowDateTime.isNumerator(false) ? "numerator" : "denominator");
-            System.out.println(NowDateTime.getDayOfWeek());
             while (true) {
                 boolean isMarked = false;
-                System.out.println(NowDateTime.getTime());
                 try {
-                    String link = schedule.getNowClassLink((NowDateTime.isNumerator(false)) ? "numerator" : "denominator", NowDateTime.getDayOfWeek(), NowDateTime.getTime());
-                    System.out.println(link);
-                    int cnt = 0;
+                    System.out.printf("%s %s %s\n", NowDateTime.getWeekType(false), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    String link = schedule.getNowClassLink(NowDateTime.getWeekType(false), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    int cnt = 1;
                     if (link != null) {
+                        System.out.println(link);
+                        isMarked = Mark(driver, link);
                         while (!isMarked) {
                             System.out.printf("Не удалось отметить свое присутствие. Попытка %d\n", cnt);
                             cnt++;
                             isMarked = Mark(driver, link);
-                            TimeUnit.MINUTES.sleep(5);
+                            TimeUnit.MINUTES.sleep(3);
                         }
-
                     }
                     TimeUnit.MINUTES.sleep(1);
                 } catch (InterruptedException e) {
@@ -42,7 +39,7 @@ public class AutoMark {
         }
     }
 
-    public static boolean Mark(WebDriver driver, String link) { //Должен быть private
+    private static boolean Mark(WebDriver driver, String link) { //Должен быть private
         if (!Objects.equals(driver.getCurrentUrl(), link)) {
             driver.get(link);
         }

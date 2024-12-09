@@ -1,11 +1,9 @@
 <component name="libraryTable">
-  <library name="auto-service-annotations-1.1.1-sources">
+  <library name="Selenium Java 4.27">
     <CLASSES>
       <root url="file://$USER_HOME$/Downloads/Selenium Java 4.27.0" />
     </CLASSES>
-    <JAVADOC>
-      <root url="https://www.selenium.dev/selenium/docs/api/java/index.html" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="file://$USER_HOME$/Downloads/Selenium Java 4.27.0" />
     </SOURCES>

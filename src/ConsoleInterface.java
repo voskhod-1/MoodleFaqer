@@ -38,8 +38,7 @@ public class ConsoleInterface {
         try {
             MoodleUser student = new MoodleUser(login, password);
             System.out.println(student.getUserName());
-            AutoMark.Mark(student.getDriver(),"https://edu.vsu.ru/mod/attendance/view.php?id=1308363");
-            //getMenu(student.getDriver());
+            getMenu(student.getDriver());
         } catch (Exception e) {
             e.printStackTrace();
         }

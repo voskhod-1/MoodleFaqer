@@ -23,4 +23,8 @@ public class NowDateTime {
         LocalDateTime today = LocalDateTime.now();
         return today.toLocalTime().toString().substring(0, 5);
     }
+
+    public static String getWeekType(boolean invert) {
+        return isNumerator(invert) ? "Numerator" : "Denominator";
+    }
 }

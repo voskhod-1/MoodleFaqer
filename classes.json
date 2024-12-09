@@ -1,20 +1,20 @@
 {
   "classes": {
     "numerator": {
-      "Monday": {
+      "MONDAY": {
         "13:25": "https://edu.vsu.ru/mod/attendance/view.php?id=1308363",
-        "15:20": "https://edu.vsu.ru/mod/attendance/view.php?id=1262292"
+        "16:35": "https://edu.vsu.ru/mod/attendance/view.php?id=1262292"
       },
-      "Friday": {
+      "FRIDAY": {
         "8:00": "https://edu.vsu.ru/mod/attendance/view.php?id=1307988"
       }
     },
     "denominator": {
-      "Monday": {
+      "MONDAY": {
         "13:25": "https://edu.vsu.ru/mod/attendance/view.php?id=1308363",
         "15:10": "https://edu.vsu.ru/mod/attendance/view.php?id=1262292"
       },
-      "Friday": {
+      "FRIDAY": {
         "8:00": "https://edu.vsu.ru/mod/attendance/view.php?id=1307988"
       }
     }

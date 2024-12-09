@@ -42,7 +42,7 @@ public class AutoMark {
         }
     }
 
-    private static boolean Mark(WebDriver driver, String link) {
+    public static boolean Mark(WebDriver driver, String link) { //Должен быть private
         if (!Objects.equals(driver.getCurrentUrl(), link)) {
             driver.get(link);
         }

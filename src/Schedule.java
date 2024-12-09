@@ -23,7 +23,7 @@ public class Schedule {
     public List<String> getAllDays(String weekType) {
         Set<String> allDays = new HashSet<>();
         allDays.addAll(classes.get(weekType).keySet());
-        return allDays.stream().toList();
+        return allDays.stream().map(String::toUpperCase).toList();
     }
 
     public List<String> getAllTime(String weekType, String day) {
@@ -35,7 +35,7 @@ public class Schedule {
     public String getNowClassLink(String weekType, String dayOfWeek, String time) {
         if (getAllDays(weekType).contains(dayOfWeek)) {
             if (getAllTime(weekType, dayOfWeek).contains(time)) {
-                System.out.println("Ссылка");
+                System.out.printf("Ссылка ");
                 return getPeriod().get(weekType).get(dayOfWeek).get(time);
             }
         }

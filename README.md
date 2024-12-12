@@ -43,7 +43,7 @@
 ### 10. У вас загрузится архив, в котором будет файл chromedriver
 ### Для Windows
 #### Переместите этот файл в директорию C:/Windows/System32
-#### Для удобства есть команда ``` move chromedriver C:/Windows/System32``` (для cmd от имени администратора)
+#### Для удобства есть команда ``` move chromedriver.exe C:/Windows/System32``` (для cmd от имени администратора)
 ### Для Mac
 #### Переместите этот файл в /usr/local/bin
 #### Для удобства есть команда ``` mv chromedriver /usr/local/bin```

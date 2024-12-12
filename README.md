@@ -6,7 +6,7 @@
 ### 1. В меню IDE(на Windows выглядит так: ≡) выберите *File* -> *New* -> *Project from Version Control...*
 <img width="655" alt="Снимок экрана 2024-12-12 в 17 14 27" src="https://github.com/user-attachments/assets/320e400c-695a-4eea-9335-a2f134c57ba5" />
 
-### 2. В открывшемся меню введите ссылку как показано ниже и нажмите *Clone*
+### 2. В открывшемся меню введите ссылку на этот репозиторий как показано ниже и нажмите *Clone*
 <img width="912" alt="Снимок экрана 2024-12-12 в 17 20 09" src="https://github.com/user-attachments/assets/09baba7b-aff2-42db-8e29-268c72202440" />
 
 ### 2.1. Если вылезет предупреждение - смело жмите *This window*
@@ -17,7 +17,7 @@
 <img width="1019" alt="Снимок экрана 2024-12-12 в 17 24 59" src="https://github.com/user-attachments/assets/523ecc2c-a1ca-4e5f-93a2-cd6d60e88dbc" />
 <img width="318" alt="Снимок экрана 2024-12-12 в 17 28 19" src="https://github.com/user-attachments/assets/8a73e98e-3bea-4049-b3eb-015d2bc63e7d" />
 
-### 5. Перед вами поле ввода. Введите ```google.code.gson``` и выберите самый верхний пункт(номер версии может отличаться от той, что на скриншоте)
+### 5. Перед вами поле ввода. Введите ```google.code.gson``` и выберите самый верхний пункт(номер версии может отличаться от той, что на скриншоте). Пока окно не закрывайте - дальше оно вам понадобится.
 <img width="621" alt="Снимок экрана 2024-12-12 в 17 33 30" src="https://github.com/user-attachments/assets/f9d1e230-a32b-49a3-ae39-5d91681c625a" />
 
 ### 6. Скачайте [Selenium](https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.27.0/selenium-java-4.27.0.zip) и разархивируйте в любом удобном месте

@@ -1,3 +1,6 @@
+package Logic;
+
+import Console.ConsoleInterface;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 

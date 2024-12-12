@@ -1,24 +1,30 @@
+package Logic;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class AutoMark {
-    public static void AutoMarker(WebDriver driver) {
+    public static String AutoMarker(WebDriver driver) {
+        String outputStr;
         try {
             String strJson = JsonIO.readStringFromFile("classes.json");
             Schedule schedule = JsonIO.stringAsSchedule(strJson);
             while (true) {
                 boolean isMarked = false;
                 try {
-                    System.out.printf("%s %s %s\n", NowDateTime.getWeekType(false), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    outputStr = NowDateTime.getWeekType(false) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime() + "\n";
                     String link = schedule.getNowClassLink(NowDateTime.getWeekType(false), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+                    outputStr += link + "\n";
                     int cnt = 1;
                     if (link != null) {
-                        System.out.println(link);
+                        //System.out.println(link);
+                        System.out.print(outputStr);
                         isMarked = Mark(driver, link);
                         while (!isMarked) {
                             System.out.printf("Не удалось отметить свое присутствие. Попытка %d\n", cnt);
@@ -26,7 +32,7 @@ public class AutoMark {
                             isMarked = Mark(driver, link);
                             TimeUnit.MINUTES.sleep(3);
                         }
-                    }
+                    } else return outputStr;
                     TimeUnit.MINUTES.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -37,9 +43,10 @@ public class AutoMark {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    private static boolean Mark(WebDriver driver, String link) { //Должен быть private
+    protected static boolean Mark(WebDriver driver, String link) { //Должен быть private
         if (!Objects.equals(driver.getCurrentUrl(), link)) {
             driver.get(link);
         }
@@ -57,5 +64,4 @@ public class AutoMark {
         }
         return true;
     }
-
 }

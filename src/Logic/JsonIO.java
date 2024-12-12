@@ -1,7 +1,8 @@
+package Logic;
+
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class JsonIO {

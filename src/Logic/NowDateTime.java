@@ -1,7 +1,8 @@
+package Logic;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
-import java.util.Locale;
 
 public class NowDateTime {
 

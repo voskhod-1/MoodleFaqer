@@ -1,3 +1,6 @@
+package Console;
+
+import Logic.*;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Scanner;

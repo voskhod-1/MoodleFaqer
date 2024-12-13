@@ -21,7 +21,7 @@ public class JsonIO {
         return inStr;
     }
 
-    public static void writeStringToFile(String fileName, String str) throws IOException {
+    public static void writeStringToFile(String str, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(str);
         }

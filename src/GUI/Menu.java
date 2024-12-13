@@ -18,7 +18,8 @@ public class Menu extends JFrame {
         setContentPane(MenuPanel);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Hello.setText("Здраствуйте, " + user.getUserName());
+        setSize(500, 500);
+        Hello.setText("Здравствуйте, " + user.getUserName());
         autoMarkBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -25,6 +25,12 @@ public class AMMenu extends JFrame {
                 dispose();
             }
         });
+        cfgSchedBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ConfigEditor(user);
+                dispose();
+            }
+        });
     }
-
 }

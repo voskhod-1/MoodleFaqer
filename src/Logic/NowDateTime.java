@@ -26,6 +26,6 @@ public class NowDateTime {
     }
 
     public static String getWeekType(boolean invert) {
-        return isNumerator(invert) ? "Numerator" : "Denominator";
+        return isNumerator(invert) ? "numerator" : "denominator";
     }
 }

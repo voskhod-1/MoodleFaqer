@@ -115,7 +115,7 @@ public class ConfigEditor extends JFrame {
                         // Проверка формата времени
                         Pattern pattern = Pattern.compile("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
                         Matcher matcher = pattern.matcher(timeText);
-                        if (!matcher.matches()) {
+                        if (!matcher.matches()|| timeText.length() != 5) {
                             JOptionPane.showMessageDialog(ConfigEditor.this, "Неверный формат времени. Используйте HH:MM", "Ошибка", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
@@ -137,8 +137,8 @@ public class ConfigEditor extends JFrame {
             exitBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    dispose();
                     new Menu(user);
+                    dispose();
                 }
             });
 

@@ -1,8 +1,6 @@
 package GUI;
 
-import Logic.JsonIO;
 import Logic.MoodleUser;
-import Logic.Schedule;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +10,7 @@ public class AMMenu extends JFrame {
     private JButton startBtn;
     private JButton cfgSchedBtn;
     private JPanel panel1;
+    private JCheckBox invertChB;
 
     public AMMenu(MoodleUser user) {
         setContentPane(panel1);
@@ -21,15 +20,15 @@ public class AMMenu extends JFrame {
         startBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AutoMark(user);
                 dispose();
+                new AutoMark(user,invertChB.isSelected());
             }
         });
         cfgSchedBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ConfigEditor(user);
                 dispose();
+                new ConfigEditor(user);
             }
         });
     }

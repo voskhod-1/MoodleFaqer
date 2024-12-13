@@ -22,6 +22,7 @@ public class Schedule {
 
     public Map<String, String> getDay(String weekType, String dayType) {
         weekType = weekType.toLowerCase();
+        dayType = dayType.toUpperCase();
         return classes.get(weekType).get(dayType);
     }
 
@@ -158,5 +159,5 @@ public class Schedule {
         System.out.println(output);
         return output;
     }
-
+    
 }

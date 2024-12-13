@@ -7,18 +7,19 @@ import Logic.Schedule;
 import org.openqa.selenium.WebDriver;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
 class AutoMarkGui extends Logic.AutoMark {
-    public static String autoMark(WebDriver driver, String strJson, Schedule schedule) {
+    public static String autoMark(WebDriver driver, String strJson, Schedule schedule, boolean invert) {
         String outputStr;
         try {
             boolean isMarked = false;
-            outputStr = NowDateTime.getWeekType(false) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime() + "\n";
-            String link = schedule.getNowClassLink(NowDateTime.getWeekType(false), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+            outputStr = NowDateTime.getWeekType(invert) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime() + "\n";
+            String link = schedule.getNowClassLink(NowDateTime.getWeekType(invert), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
             outputStr += link + "\n";
             int cnt = 1;
             if (link != null) {
@@ -44,11 +45,11 @@ public class AutoMark extends JFrame {
     private JPanel panel1;
     private JScrollPane scrollPane1;
 
-    public AutoMark(MoodleUser user) {
+    public AutoMark(MoodleUser user, boolean invert) {
         super("AutoMark");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(panel1);
-        setSize(500, 500);
+        setSize(600, 400);
         setVisible(true);
 
         closeBtn.addActionListener(new ActionListener() {
@@ -65,7 +66,7 @@ public class AutoMark extends JFrame {
                 String strJson = JsonIO.readStringFromFile("classes.json");
                 Schedule schedule = JsonIO.stringAsSchedule(strJson);
                 while (true) {
-                    String outputInfo = AutoMarkGui.autoMark(user.getDriver(), strJson, schedule);
+                    String outputInfo = AutoMarkGui.autoMark(user.getDriver(), strJson, schedule, invert);
                     SwingUtilities.invokeLater(() -> {
                         if (outputInfo != null) {
                             textArea1.append(outputInfo);

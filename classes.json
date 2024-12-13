@@ -6,7 +6,7 @@
       "13:25": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1308363"
     },
     "FRIDAY": {
-      "8:00": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1307988"
+      "08:00": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1307988"
     }
   },
   "denominator": {
@@ -15,7 +15,7 @@
       "15:10": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1262292"
     },
     "FRIDAY": {
-      "8:00": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1307988"
+      "08:00": "https://edu.vsu.ru/mod/attendance/view.php?id\u003d1307988"
     }
   }
 }

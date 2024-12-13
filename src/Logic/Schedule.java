@@ -50,7 +50,7 @@ public class Schedule {
         time = time.trim();
         if (getAllDays(weekType).contains(dayOfWeek)) {
             if (getAllTime(weekType, dayOfWeek).contains(time)) {
-                System.out.printf("Ссылка ");
+                System.out.print("Ссылка ");
                 return getPeriod().get(weekType).get(dayOfWeek).get(time);
             }
         }
@@ -158,15 +158,5 @@ public class Schedule {
         System.out.println(output);
         return output;
     }
-
-    public static void main(String[] args) {
-        try {
-            Schedule schedule = JsonIO.stringAsSchedule(JsonIO.readStringFromFile("classes.json"));
-            schedule.removeClass("numerator", "FRIDAY", "8:00");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

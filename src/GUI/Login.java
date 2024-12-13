@@ -23,11 +23,15 @@ public class Login extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Login attempt");
                 //System.out.println(pwdField.getText());
+                if (loginField.getText().isEmpty() || pwdField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(Login.this, "Пожалуйста, заполните все поля", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 try {
                     MoodleUser student = new MoodleUser(loginField.getText(), pwdField.getText());
                     new Menu(student);
                     dispose();
-                }catch (IOException ex){
+                } catch (IOException ex) {
                     new Error(ex.toString());
                     dispose();
                 }

@@ -7,6 +7,7 @@ import Logic.Schedule;
 import org.openqa.selenium.WebDriver;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +42,7 @@ public class AutoMark extends JFrame {
     private JButton closeBtn;
     private JTextArea textArea1;
     private JPanel panel1;
-    private JScrollPane scrollPane1 = new JScrollPane(textArea1);
+    private JScrollPane scrollPane1;
 
     public AutoMark(MoodleUser user) {
         super("AutoMark");
@@ -58,13 +59,22 @@ public class AutoMark extends JFrame {
             }
         });
 
+        // Ваш поток для обновления текста в textArea1
         new Thread(() -> {
             try {
                 String strJson = JsonIO.readStringFromFile("classes.json");
                 Schedule schedule = JsonIO.stringAsSchedule(strJson);
                 while (true) {
                     String outputInfo = AutoMarkGui.autoMark(user.getDriver(), strJson, schedule);
-                    SwingUtilities.invokeLater(() -> textArea1.setText(outputInfo != null ? outputInfo : "\n"));
+                    SwingUtilities.invokeLater(() -> {
+                        if (outputInfo != null) {
+                            textArea1.append(outputInfo);
+                        } else {
+                            textArea1.append("\n");
+                        }
+                        // Автоматически прокручиваем вниз после добавления текста
+                        textArea1.setCaretPosition(textArea1.getDocument().getLength());
+                    });
                     TimeUnit.MINUTES.sleep(1);
                 }
             } catch (Exception e) {
@@ -73,5 +83,4 @@ public class AutoMark extends JFrame {
             }
         }).start();
     }
-
 }

@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ConfigEditor extends JFrame {
     private JList<String> weekType; // Должен быть связан с компонентом в GUI Designer
@@ -77,18 +79,19 @@ public class ConfigEditor extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Удаление");
 
-                    // Проверяем, что есть выделенный путь и он содержит как минимум 5 элементов
                     if (pathList.size() >= 5) {
                         schedule.removeClass(pathList.get(2), pathList.get(3), pathList.get(4));
                         try {
                             tree.setModel(new javax.swing.tree.DefaultTreeModel(
                                     readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))
                             ));
+                            // Уведомление об успешном удалении
+                            JOptionPane.showMessageDialog(ConfigEditor.this, "Занятие успешно удалено.", "Успех", JOptionPane.INFORMATION_MESSAGE);
                         } catch (Exception ex) {
                             new Error(ex.toString());
                         }
                     } else {
-                        System.out.println("Недостаточно данных для удаления. Проверьте выделение.");
+                        JOptionPane.showMessageDialog(ConfigEditor.this, "Недостаточно данных для удаления. Проверьте выделение.", "Ошибка", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
@@ -99,25 +102,36 @@ public class ConfigEditor extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Добавление");
                     try {
-                        // Получаем выбранные элементы из списков
                         String selectedWeekType = weekType.getSelectedValue();
                         String selectedDayOfWeek = dayOfWeekType.getSelectedValue();
+                        String timeText = timeField.getText();
+                        String linkText = linkField.getText();
 
-                        if (selectedWeekType == null || selectedDayOfWeek == null || timeField.getText().isEmpty() || linkField.getText().isEmpty()) {
+                        if (selectedWeekType == null || selectedDayOfWeek == null || timeText.isEmpty() || linkText.isEmpty()) {
                             JOptionPane.showMessageDialog(ConfigEditor.this, "Заполните все поля", "Ошибка", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
 
-                        // Добавляем занятие
-                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeField.getText(), linkField.getText());
+                        // Проверка формата времени
+                        Pattern pattern = Pattern.compile("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+                        Matcher matcher = pattern.matcher(timeText);
+                        if (!matcher.matches()) {
+                            JOptionPane.showMessageDialog(ConfigEditor.this, "Неверный формат времени. Используйте HH:MM", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText);
 
                         // Обновляем модель дерева
                         tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));
+                        // Уведомление об успешном добавлении
+                        JOptionPane.showMessageDialog(ConfigEditor.this, "Занятие успешно добавлено.", "Успех", JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
                         new Error(ex.toString());
                     }
                 }
             });
+
 
             // Обработчик кнопки выхода
             exitBtn.addActionListener(new ActionListener() {

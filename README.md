@@ -1,7 +1,10 @@
-# MFAlpha
+ # MFAlpha
 ### Приложение, призванное сохранить здоровый сон на парах
 
-## Установка под Intellij IDEA
+## Инструкция по установке
+### 1. Перейдите в [Releases](https://github.com/mynameisasskiss/MFAlpha/releases)
+
+## ~~Установка под Intellij IDEA~~ Теперь установка гораздо проще. Инструкция выше
 ### 0. Процесс установки может *слегка* отличаться в зависимости от вашей системы
 ### 1. В меню IDE(на Windows выглядит так: ≡) выберите *File* -> *New* -> *Project from Version Control...*
 <img width="655" alt="Снимок экрана 2024-12-12 в 17 14 27" src="https://github.com/user-attachments/assets/320e400c-695a-4eea-9335-a2f134c57ba5" />

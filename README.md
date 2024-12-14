@@ -28,16 +28,13 @@
 ### 5. Перед вами поле ввода. Введите ```google.code.gson```, нажмите на лупу и выберите самый верхний пункт(номер версии может отличаться от той, что на скриншоте). Дважды надмите *ОК*. Пока окно не закрывайте - дальше оно вам понадобится.
 <img width="621" alt="Снимок экрана 2024-12-12 в 17 33 30" src="https://github.com/user-attachments/assets/f9d1e230-a32b-49a3-ae39-5d91681c625a" />
 
-### 6. Скачайте [Selenium](https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.27.0/selenium-java-4.27.0.zip) и разархивируйте в любом удобном месте
-<img width="665" alt="Снимок экрана 2024-12-12 в 17 37 59" src="https://github.com/user-attachments/assets/a2ee1685-c79f-4623-b287-1d7c6cbdead4" />
-
-### 7. Повторите действия из пункта 4, но теперь выберите *Java*. В открывшемся меню выбора файла выберите папку, которую создали в пункте 6
+### 6. Повторите действия из пункта 4, но теперь выберите *Java*. В открывшемся меню выбора файла выберите папку Selenium Java 4.27.0 в корне папки проекта
 <img width="345" alt="Снимок экрана 2024-12-12 в 17 40 11" src="https://github.com/user-attachments/assets/ba3e0839-bd67-4c65-8beb-3ea2ed89b056" />
 
-### 8. Намите ОК и закройте окно *Project Structure*
+### 7. Намите ОК и закройте окно *Project Structure*
 <img width="549" alt="Снимок экрана 2024-12-12 в 17 41 56" src="https://github.com/user-attachments/assets/e20d8eaa-2ed9-46be-af0c-8ff301a67191" />
 
-### 9. Установите WebDriver(инструкция ниже)
+### 8. Установите WebDriver(инструкция ниже)
 
 ## Установка WebDriver
 

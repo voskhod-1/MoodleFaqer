@@ -1,4 +1,4 @@
-## Инструкция по установке
+# Инструкция по установке
 #### 1. Перейдите в [Releases](https://github.com/mynameisasskiss/MFAlpha/releases)
 #### 2. Установите jar-файл в любое удобное место
 #### 3. Установите WebDriver [инструкция](WEBDRIVER.md)

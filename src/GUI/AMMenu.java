@@ -17,6 +17,7 @@ public class AMMenu extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 300);
+        Logic.CreateClassesJson.check();
         startBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

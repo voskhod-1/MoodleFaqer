@@ -15,6 +15,10 @@
 
 ## Требования
 #### - Человек с развивающимися навыками ручного труда
+![image](https://github.com/user-attachments/assets/4fd6f206-5416-4e6c-ae14-0c6b3f2472d5)
+
 #### – JDK 21
 #### ~~– IDE(желательно Intellij IDEA)~~
 #### - Наличие доступа в интернет
+[<img src="https://github.com/user-attachments/assets/ad5ac3f2-b3c4-4619-a073-e1f52d6778ed" alt="Sample Image" width="320" height="240>]()
+

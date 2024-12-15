@@ -3,8 +3,8 @@
 
 ## Установка
 #### Инструкция [ТУТ](INSTALL.md)
-[![https://github.com/user-attachments/assets/b0cdeff9-7538-4e5d-bd91-91b1a935eb11
-](INSTALL.md)]
+[![telegram-cloud-photo-size-2-5332351827158626112-y](https://github.com/user-attachments/assets/c59fc890-9274-41ed-a2e3-be638e745711)](INSTALL.md)
+
 
 
 ## Как использовать

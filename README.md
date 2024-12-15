@@ -21,7 +21,7 @@
 #### – JDK 21
 #### ~~– IDE(желательно Intellij IDEA)~~
 #### - Наличие доступа в интернет
-<img src="https://github.com/user-attachments/assets/ad5ac3f2-b3c4-4619-a073-e1f52d6778ed" alt="Sample Image" width="320" height="240">
+<img src="https://github.com/user-attachments/assets/409a9920-fff0-4468-999c-c523d426b44e" alt="Sample Image" width="320" height="240">
 
 
 

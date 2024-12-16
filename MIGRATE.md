@@ -18,3 +18,5 @@
 
 ### Стало:
 <img width="622" alt="Снимок экрана 2024-12-16 в 09 47 46" src="https://github.com/user-attachments/assets/e85b75f5-f8fc-4724-acf3-eb2149e1121c" />
+
+P.S. advanced оставьте пустым. Он нужен для новых функций

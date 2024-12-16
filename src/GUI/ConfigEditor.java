@@ -18,24 +18,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConfigEditor extends JFrame {
-    private JList<String> weekType; // Должен быть связан с компонентом в GUI Designer
-    private JPanel panel1;         // Панель, связанная с Designer
+    private JList<String> weekType;
+    private JPanel panel1;
     private JTree tree;
-    private JList<String> dayOfWeekType; // Должен быть связан с компонентом в GUI Designer
+    private JList<String> dayOfWeekType;
     private JTextField timeField;
     private JTextField linkField;
     private JButton delClassBtn;
     private JButton addClassButton;
     private JButton exitBtn;
     private JTextField additionalField;
+    private JList<String> classTypeList;
 
     static String[] weekTypes = {"numerator", "denominator"};
     static String[] dayOfWeekTypes = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
+    static String[] classesTypes = {"Lecture", "Seminar", "Practical"};
 
     public ConfigEditor(MoodleUser user) {
         super("Config Editor");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
         //setSize(800, 500);
         setContentPane(panel1);
 
@@ -43,6 +44,7 @@ public class ConfigEditor extends JFrame {
             // Устанавливаем модели данных для JList
             weekType.setListData(weekTypes);
             dayOfWeekType.setListData(dayOfWeekTypes);
+            classTypeList.setListData(classesTypes);
 
             Logic.Schedule schedule = Schedule.stringAsSchedule(JsonIO.readStringFromFile("classes.json"));
             tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));
@@ -52,6 +54,7 @@ public class ConfigEditor extends JFrame {
 
             pack();
             setLocationRelativeTo(null);
+            setVisible(true);
 
             // Слушатель для выбора узлов в дереве
             tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -112,8 +115,9 @@ public class ConfigEditor extends JFrame {
                         String timeText = timeField.getText();
                         String linkText = linkField.getText();
                         String addText = additionalField.getText();
+                        String classType = classTypeList.getSelectedValue();
 
-                        if (selectedWeekType == null || selectedDayOfWeek == null || timeText.isEmpty() || linkText.isEmpty()) {
+                        if (selectedWeekType == null || selectedDayOfWeek == null || timeText.isEmpty() || linkText.isEmpty() || classType.isEmpty()) {
                             JOptionPane.showMessageDialog(ConfigEditor.this, "Заполните все поля", "Ошибка", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
@@ -126,7 +130,7 @@ public class ConfigEditor extends JFrame {
                             return;
                         }
 
-                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText, addText);
+                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText,  classType, addText);
 
                         // Обновляем модель дерева
                         tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));

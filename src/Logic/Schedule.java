@@ -108,7 +108,7 @@ public class Schedule {
         return true;
     }
 
-    public boolean addClass(String weekType, String dayOfWeek, String time, String url, String advanced) {
+    public boolean addClass(String weekType, String dayOfWeek, String time, String url, String type, String advanced) {
         weekType = weekType.toLowerCase();
         dayOfWeek = dayOfWeek.toUpperCase();
         time = time.trim();
@@ -117,16 +117,15 @@ public class Schedule {
             classes = new HashMap<>();
         }
 
-        classes.computeIfAbsent(weekType, k -> new HashMap<>())
-                .computeIfAbsent(dayOfWeek, k -> new HashMap<>())
-                .putIfAbsent(time, new ClassInfo(url, advanced));
-
-        ClassInfo classInfo = classes.get(weekType).get(dayOfWeek).get(time);
-        if (classInfo == null) {
+        if (classes.containsKey(weekType) && classes.get(weekType).containsKey(dayOfWeek) && classes.get(weekType).get(dayOfWeek).containsKey(time)) {
             System.out.printf("Ошибка: В %s на %s (%s) уже есть занятие: %s.\n",
-                    dayOfWeek, time, weekType, classInfo.getUrl());
+                    dayOfWeek, time, weekType, classes.get(weekType).get(dayOfWeek).get(time).getUrl());
             return false;
         }
+
+        classes.computeIfAbsent(weekType, k -> new HashMap<>())
+                .computeIfAbsent(dayOfWeek, k -> new HashMap<>())
+                .put(time, new ClassInfo(url, type, advanced));
 
         System.out.printf("Занятие \"%s\" добавлено в %s на %s (%s).\n", url, dayOfWeek, time, weekType);
 
@@ -146,9 +145,14 @@ public class Schedule {
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String output = "{\n\t\"classes\": " + gson.toJson(classes) + "\n}";
-        System.out.println(output);
-        return output;
+        try {
+            String output = "{\n\t\"classes\": " + gson.toJson(classes) + "\n}";
+            System.out.println(output);
+            return output;
+        } catch (Exception e) {
+            System.err.println("Ошибка при сохранении: " + e.getMessage());
+            return "";
+        }
     }
 
     public static Schedule stringAsSchedule(String data) throws com.google.gson.JsonSyntaxException {
@@ -160,7 +164,7 @@ public class Schedule {
     public static void main(String[] args) {
         try {
             Schedule s = stringAsSchedule(JsonIO.readStringFromFile("classes.json"));
-            System.out.println(s.getNowClassInfo("numeratOr","monday", "13:25").getUrl());
+            System.out.println(s.getNowClassInfo("numeratOr", "monday", "13:25").getUrl());
         } catch (IOException | com.google.gson.JsonSyntaxException e) {
             e.printStackTrace();
         }
@@ -169,10 +173,12 @@ public class Schedule {
     public static class ClassInfo {
         private String url;
         private String advanced;
+        private String type;
 
-        public ClassInfo(String url, String advanced) {
+        public ClassInfo(String url, String type, String advanced) {
             this.url = url;
             this.advanced = advanced;
+            this.type = type;
         }
 
         public String getUrl() {
@@ -181,6 +187,10 @@ public class Schedule {
 
         public String getAdvanced() {
             return advanced;
+        }
+
+        public String getType() {
+            return type;
         }
     }
 }

@@ -1,6 +1,5 @@
 package Logic;
 
-import Console.ConsoleInterface;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -48,7 +47,6 @@ public class UserCloner {
 
     public static void getMenu(WebDriver driver) {
         Scanner sc = new Scanner(System.in);
-        ConsoleInterface.clearConsole();
         System.out.println("Теперь введите количество клонов");
         int quantity = sc.nextInt();
         multiClone(driver, quantity);

@@ -11,32 +11,39 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class AutoMark {
-    public static String autoMark(WebDriver driver, String strJson, Schedule schedule, boolean invert) {
+    public static String autoMark(WebDriver driver, Schedule schedule, boolean invert) {
         String outputStr;
-        try {
-            boolean isMarked = false;
-            outputStr = NowDateTime.getWeekType(invert) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime() + "\n";
-            Schedule.ClassInfo pairClass = schedule.getNowClassInfo(NowDateTime.getWeekType(invert), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
-            String link;
-            if (pairClass != null) {
-                link = schedule.getNowClassInfo(NowDateTime.getWeekType(invert), NowDateTime.getDayOfWeek(), NowDateTime.getTime()).getUrl();
-            } else {
-                link = null;
-            }
-            outputStr += link + "\n";
-            int cnt = 1;
+        boolean isMarked = false;
+        outputStr = NowDateTime.getWeekType(invert) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime() + "\n";
+        Schedule.ClassInfo pairClass = schedule.getNowClassInfo(NowDateTime.getWeekType(invert), NowDateTime.getDayOfWeek(), NowDateTime.getTime());
+        String link;
+        if (pairClass == null) {
+            link = null;
+
+        } else {
+            link = pairClass.getUrl();
             if (link != null) {
-                System.out.print(outputStr);
-                isMarked = Mark(driver, link);
+                outputStr += link + "\n";
+                System.out.println(outputStr);
+                if (pairClass.getType().equals("Lecture")) {
+
+                    isMarked = mark(driver, link);
+                    while (!isMarked) {
+                        return link;
+                    }
+                    return outputStr;
+                } else if (pairClass.getType().equals("Practical"))
+                    isMarked = joinToPractical(driver, link);
                 while (!isMarked) {
-                    System.out.printf("Не удалось отметить свое присутствие. Попытка %d\n", cnt);
-                    cnt++;
-                    isMarked = Mark(driver, link);
-                    TimeUnit.MINUTES.sleep(3);
+                    return link;
                 }
-            } else return outputStr;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                return outputStr;
+            } else if (pairClass.getType().equals("Seminar")) {
+                isMarked = joinToSeminar(driver, link);
+                while (!isMarked) {
+                    return link;
+                }
+            }
         }
         return null;
     }
@@ -45,12 +52,19 @@ public class AutoMark {
         try {
             String strJson = JsonIO.readStringFromFile("classes.json");
             Schedule schedule = Schedule.stringAsSchedule(strJson);
+            int cnt = 0;
             while (true) {
-                autoMark(driver, strJson, schedule, invert);
-                try {
-                    TimeUnit.MINUTES.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (autoMark(driver, schedule, invert).contains("mod")) {
+                    cnt++;
+                    System.out.println("Не удалось отметиться. Попытка " + cnt);
+                } else {
+                    cnt = 0;
+                    System.out.println("Успешно отметил вас");
+                    try {
+                        TimeUnit.MINUTES.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (JsonSyntaxException | IOException e) {
@@ -58,7 +72,16 @@ public class AutoMark {
         }
     }
 
-    protected static boolean Mark(WebDriver driver, String link) { //Должен быть private
+    public static boolean joinToPractical(WebDriver driver, String link) {
+
+        return false;
+    }
+
+    public static boolean joinToSeminar(WebDriver driver, String link) {
+        return false;
+    }
+
+    public static boolean mark(WebDriver driver, String link) { //Должен быть private
         if (!Objects.equals(driver.getCurrentUrl(), link)) {
             driver.get(link);
         }
@@ -75,7 +98,7 @@ public class AutoMark {
         return true;
     }
 
-    public static boolean invertWeeks(){
+    public static boolean invertWeeks() {
         Scanner scanner = new Scanner(System.in);
         System.out.println(NowDateTime.getWeekType(false));
         System.out.println("Если необходимо сменить тип недель, введите 'y");

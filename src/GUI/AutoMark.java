@@ -23,11 +23,10 @@ public class AutoMark extends JFrame {
         super("AutoMark");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(panel1);
-        //setSize(600, 400);
-        pack();
+        setSize(400, 400);
+        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
         closeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,14 +41,28 @@ public class AutoMark extends JFrame {
                 String strJson = JsonIO.readStringFromFile("classes.json");
                 Schedule schedule = Schedule.stringAsSchedule(strJson);
                 while (true) {
-                    String outputInfo = Logic.AutoMark.autoMark(user.getDriver(), strJson, schedule, invert);
+                    textArea1.append(NowDateTime.getWeekType(invert) + " " + NowDateTime.getDayOfWeek() + " " + NowDateTime.getTime());
+                    String outputInfo = Logic.AutoMark.autoMark(user.getDriver(), schedule, invert);
                     SwingUtilities.invokeLater(() -> {
                         if (outputInfo != null) {
-                            textArea1.append(outputInfo);
+                            int cnt = 0;
+                            if (!outputInfo.contains("mod")) {
+                                cnt++;
+                                textArea1.append("Не удалось отметиться. Попытка " + cnt + "\n");
+                                boolean isSuccess = false;
+                                while (!isSuccess) {
+                                    isSuccess = Logic.AutoMark.mark(user.getDriver(), outputInfo);
+                                    try {
+                                        TimeUnit.MINUTES.sleep(3);
+                                    } catch (InterruptedException e1) {
+                                        new Error(e1.toString());
+                                    }
+                                }
+                                textArea1.append("Успешно");
+                            } else textArea1.append(outputInfo);
                         } else {
                             textArea1.append("\n");
                         }
-                        // Автоматически прокручиваем вниз после добавления текста
                         textArea1.setCaretPosition(textArea1.getDocument().getLength());
                     });
                     TimeUnit.MINUTES.sleep(1);

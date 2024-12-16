@@ -1,6 +1,9 @@
  # MFAlpha
 #### Приложение, призванное сохранить здоровый сон на парах
 
+## Важное
+#### [Файлы classes.json из версии 0.2 не совместимы с 0.3](MIGRATE.md)
+
 ## Установка
 #### Инструкция *Жми на картинку*
 [<img src="https://github.com/user-attachments/assets/c59fc890-9274-41ed-a2e3-be638e745711" alt="Sample Image" width="320" height="240">](INSTALL.md)

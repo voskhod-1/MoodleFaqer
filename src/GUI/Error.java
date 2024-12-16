@@ -12,8 +12,10 @@ public class Error extends JFrame{
         setContentPane(panel1);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(300,200);
+        //setSize(300,200);//;
         textArea1.setText(message);
+        pack();
+        setLocationRelativeTo(null);
         closeButton.addActionListener(e -> {System.exit(0);});
     }
 

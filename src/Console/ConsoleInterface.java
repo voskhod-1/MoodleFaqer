@@ -18,7 +18,7 @@ public class ConsoleInterface {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                AutoMark.AutoMarker(driver);
+                AutoMark.consoleMark(driver, AutoMark.invertWeeks());
                 break;
             case 2:
                 UserCloner.getMenu(driver);

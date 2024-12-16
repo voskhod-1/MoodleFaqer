@@ -2,6 +2,7 @@ package GUI;
 
 import Logic.JsonIO;
 import Logic.MoodleUser;
+import Logic.Schedule;
 import com.google.gson.*;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class ConfigEditor extends JFrame {
     private JButton delClassBtn;
     private JButton addClassButton;
     private JButton exitBtn;
+    private JTextField additionalField;
 
     static String[] weekTypes = {"numerator", "denominator"};
     static String[] dayOfWeekTypes = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
@@ -34,7 +36,7 @@ public class ConfigEditor extends JFrame {
         super("Config Editor");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        setSize(500, 800);
+        //setSize(800, 500);
         setContentPane(panel1);
 
         try {
@@ -42,11 +44,14 @@ public class ConfigEditor extends JFrame {
             weekType.setListData(weekTypes);
             dayOfWeekType.setListData(dayOfWeekTypes);
 
-            Logic.Schedule schedule = JsonIO.stringAsSchedule(JsonIO.readStringFromFile("classes.json"));
+            Logic.Schedule schedule = Schedule.stringAsSchedule(JsonIO.readStringFromFile("classes.json"));
             tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));
             System.out.println(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json")));
 
             List<String> pathList = new ArrayList<>();
+
+            pack();
+            setLocationRelativeTo(null);
 
             // Слушатель для выбора узлов в дереве
             tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -106,6 +111,7 @@ public class ConfigEditor extends JFrame {
                         String selectedDayOfWeek = dayOfWeekType.getSelectedValue();
                         String timeText = timeField.getText();
                         String linkText = linkField.getText();
+                        String addText = additionalField.getText();
 
                         if (selectedWeekType == null || selectedDayOfWeek == null || timeText.isEmpty() || linkText.isEmpty()) {
                             JOptionPane.showMessageDialog(ConfigEditor.this, "Заполните все поля", "Ошибка", JOptionPane.ERROR_MESSAGE);
@@ -120,7 +126,7 @@ public class ConfigEditor extends JFrame {
                             return;
                         }
 
-                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText);
+                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText, addText);
 
                         // Обновляем модель дерева
                         tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));

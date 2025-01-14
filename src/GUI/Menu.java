@@ -10,7 +10,7 @@ public class Menu extends JFrame {
     private JPanel MenuPanel;
     private JLabel Hello;
     private JButton autoMarkBtn;
-    private JButton trollBtn;
+    private JButton dwnldBtn;
     private JButton button3;
 
     public Menu(MoodleUser user) {
@@ -29,10 +29,11 @@ public class Menu extends JFrame {
                 dispose();
             }
         });
-        trollBtn.addActionListener(new ActionListener() {
+        dwnldBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                trollBtn.setName("Не работает");
+                new LectureDownloader(user);
+                dispose();
             }
         });
         button3.addActionListener(new ActionListener() {

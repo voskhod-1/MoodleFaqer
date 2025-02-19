@@ -57,7 +57,7 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="MoodleFaqer v.0.3"/>
+          <text value="MoodleHelper v.1.0"/>
         </properties>
       </component>
     </children>

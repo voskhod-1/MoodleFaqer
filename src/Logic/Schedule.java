@@ -108,7 +108,7 @@ public class Schedule {
         return true;
     }
 
-    public boolean addClass(String weekType, String dayOfWeek, String time, String url, String type, String advanced) {
+    public boolean addClass(String weekType, String dayOfWeek, String time, String url, String type, String lectUrl) {
         weekType = weekType.toLowerCase();
         dayOfWeek = dayOfWeek.toUpperCase();
         time = time.trim();
@@ -125,7 +125,7 @@ public class Schedule {
 
         classes.computeIfAbsent(weekType, k -> new HashMap<>())
                 .computeIfAbsent(dayOfWeek, k -> new HashMap<>())
-                .put(time, new ClassInfo(url, type, advanced));
+                .put(time, new ClassInfo(url, type, lectUrl));
 
         System.out.printf("Занятие \"%s\" добавлено в %s на %s (%s).\n", url, dayOfWeek, time, weekType);
 
@@ -172,12 +172,12 @@ public class Schedule {
 
     public static class ClassInfo {
         private String url;
-        private String advanced;
+        private String lectUrl;
         private String type;
 
-        public ClassInfo(String url, String type, String advanced) {
+        public ClassInfo(String url, String type, String lectUrl) {
             this.url = url;
-            this.advanced = advanced;
+            this.lectUrl = lectUrl;
             this.type = type;
         }
 
@@ -185,8 +185,8 @@ public class Schedule {
             return url;
         }
 
-        public String getAdvanced() {
-            return advanced;
+        public String getLectUrl() {
+            return lectUrl;
         }
 
         public String getType() {

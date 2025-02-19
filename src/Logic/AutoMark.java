@@ -19,66 +19,39 @@ public class AutoMark {
         String link;
         if (pairClass == null) {
             link = null;
-
         } else {
             link = pairClass.getUrl();
             if (link != null) {
                 outputStr += link + "\n";
                 System.out.println(outputStr);
-                if (pairClass.getType().equals("Lecture")) {
-
-                    isMarked = mark(driver, link);
-                    while (!isMarked) {
-                        return link;
-                    }
-                    return outputStr;
-                } else if (pairClass.getType().equals("Practical"))
+                if (pairClass.getLectUrl().equals("bigbluebuttonbn")) {
+                    link = pairClass.getLectUrl();
                     isMarked = joinToPractical(driver, link);
+                    outputStr += link + "\n";
+                }
+                else{
+                    isMarked = mark(driver, link);
+                }
                 while (!isMarked) {
                     return link;
                 }
                 return outputStr;
-            } else if (pairClass.getType().equals("Seminar")) {
-                isMarked = joinToSeminar(driver, link);
-                while (!isMarked) {
-                    return link;
-                }
             }
         }
         return null;
     }
 
-    public static void consoleMark(WebDriver driver, boolean invert) {
-        try {
-            String strJson = JsonIO.readStringFromFile("classes.json");
-            Schedule schedule = Schedule.stringAsSchedule(strJson);
-            int cnt = 0;
-            while (true) {
-                if (autoMark(driver, schedule, invert).contains("mod")) {
-                    cnt++;
-                    System.out.println("Не удалось отметиться. Попытка " + cnt);
-                } else {
-                    cnt = 0;
-                    System.out.println("Успешно отметил вас");
-                    try {
-                        TimeUnit.MINUTES.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (JsonSyntaxException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static boolean joinToPractical(WebDriver driver, String link) {
-
-        return false;
-    }
-
-    public static boolean joinToSeminar(WebDriver driver, String link) {
-        return false;
+        if (!Objects.equals(driver.getCurrentUrl(), link))
+            driver.get(link);
+        try {
+            driver.findElement(By.id("room_view_action_buttons")).click();
+            TimeUnit.SECONDS.sleep(3);
+            driver.findElement(By.className("icon-bbb-listen")).click();
+        } catch (NoSuchElementException | InterruptedException e) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean mark(WebDriver driver, String link) { //Должен быть private

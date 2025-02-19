@@ -23,12 +23,12 @@ public class ConfigEditor extends JFrame {
     private JTree tree;
     private JList<String> dayOfWeekType;
     private JTextField timeField;
-    private JTextField linkField;
+    private JTextField webLinkField;
     private JButton delClassBtn;
     private JButton addClassButton;
     private JButton exitBtn;
-    private JTextField additionalField;
     private JList<String> classTypeList;
+    private JTextField lectField;
 
     static String[] weekTypes = {"numerator", "denominator"};
     static String[] dayOfWeekTypes = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
@@ -113,8 +113,8 @@ public class ConfigEditor extends JFrame {
                         String selectedWeekType = weekType.getSelectedValue();
                         String selectedDayOfWeek = dayOfWeekType.getSelectedValue();
                         String timeText = timeField.getText();
-                        String linkText = linkField.getText();
-                        String addText = additionalField.getText();
+                        String linkText = lectField.getText();
+                        String lectText = webLinkField.getText();
                         String classType = classTypeList.getSelectedValue();
 
                         if (selectedWeekType == null || selectedDayOfWeek == null || timeText.isEmpty() || linkText.isEmpty() || classType.isEmpty()) {
@@ -130,7 +130,7 @@ public class ConfigEditor extends JFrame {
                             return;
                         }
 
-                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText,  classType, addText);
+                        schedule.addClass(selectedWeekType, selectedDayOfWeek, timeText, linkText,  classType, lectText);
 
                         // Обновляем модель дерева
                         tree.setModel(new javax.swing.tree.DefaultTreeModel(readStringJsonAsTree(JsonIO.readStringFromFile("classes.json"))));
